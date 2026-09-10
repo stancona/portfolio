@@ -1,0 +1,39 @@
+graph TB
+    subgraph "AI Orchestration Layer"
+        LG[LangGraph.js<br/>State Graphs]
+        LF[Langfuse<br/>Tracing & Observability]
+        LL[LiteLLM<br/>Model Gateway]
+    end
+
+    subgraph "LLM Providers"
+        O[OpenAI]
+        AN[Anthropic]
+        GO[Google]
+        locally[Local Models]
+    end
+
+    subgraph "Job Queue"
+        PG[pg-boss<br/>Background Workers]
+        DB[(PostgreSQL)]
+    end
+
+    subgraph "Application Layer"
+        APP[Remix App<br/>API Routes]
+        AGENTS["@stancona/agents<br/>LangGraph Workflows"]
+    end
+
+    APP --> AGENTS
+    AGENTS --> LG
+    LG --> LF
+    LG --> LL
+    LL --> O
+    LL --> AN
+    LL --> GO
+    LL --> locally
+    PG --> DB
+    AGENTS --> PG
+
+    style LG fill:#6366f1,stroke:#4f46e5,color:#fff
+    style LF fill:#22c55e,stroke:#16a34a,color:#fff
+    style LL fill:#f97316,stroke:#ea580c,color:#fff
+    style PG fill:#06b6d4,stroke:#0891b2,color:#fff

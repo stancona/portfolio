@@ -6,10 +6,10 @@
 
 [![Architecture](assets/banner.png)](https://stancona.org)
 
-[![Stack](https://img.shields.io/badge/stack-Astro%20%7C%20Remix%20%7C%20Preact-6366f1?style=for-the-badge)](<>)
-[![Components](https://img.shields.io/badge/components-85+-22c55e?style=for-the-badge)](<>)
-[![ADR](https://img.shields.io/badge/ADR-26-f97316?style=for-the-badge)](<>)
-[![License](https://img.shields.io/badge/license-MIT-eab308?style=for-the-badge)](<>)
+[![Stack](https://img.shields.io/badge/stack-Astro%20%7C%20Remix%20%7C%20Preact-6366f1?style=for-the-badge)](https://github.com/stancona/grimoire)
+[![Components](https://img.shields.io/badge/components-85+-22c55e?style=for-the-badge)](https://stancona.org/design)
+[![ADR](https://img.shields.io/badge/ADR-26-f97316?style=for-the-badge)](https://github.com/stancona/codex/tree/main/01-architecture/ADR)
+[![License](https://img.shields.io/badge/license-MIT-eab308?style=for-the-badge)](https://github.com/stancona/portfolio/blob/main/LICENSE)
 
 </div>
 
@@ -56,9 +56,9 @@ All surfaces share same-origin routing with a family cookie on `.stancona.org` â
 | **Layout**       | 8          | Drawer, footer, hero, divider       |
 | **Mockup**       | 3          | Browser, phone, window              |
 
-![Button Variants](screenshots/en/design-system/04-button-variants.png)
+![Button Variants](screenshots/en/design-system/06-button-variants.png)
 
-![Card Examples](screenshots/en/design-system/05-card-examples.png)
+![Card Examples](screenshots/en/design-system/10-card-examples.png)
 
 ---
 
@@ -95,7 +95,7 @@ Modular monolith backend with manifest-based module system and role-based access
 | **API**             | `/api/v1/*`, 2-tier rate limiting       |
 | **Auth**            | Email OTP (L0-L3 account ladder)        |
 
-![RBAC Roles](screenshots/en/admin-panel/02-rbac-roles.png)
+![Admin Login](screenshots/en/admin-panel/02-login.png)
 
 ---
 

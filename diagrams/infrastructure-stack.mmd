@@ -1,0 +1,56 @@
+graph TB
+    subgraph "Coolify PaaS"
+        C[Coolify Dashboard]
+    end
+
+    subgraph "Applications"
+        M[Main — stancona.org<br/>Astro 7]
+        K[Keep — keep.stancona.org<br/>Preact SPA]
+        A[App — app.stancona.org<br/>Remix 3]
+    end
+
+    subgraph "Reverse Proxy"
+        T[Traefik<br/>SSL Termination]
+    end
+
+    subgraph "Database"
+        PG[(PostgreSQL 18<br/>Coolify Managed)]
+    end
+
+    subgraph "Storage"
+        R2[Cloudflare R2<br/>S3-compatible]
+    end
+
+    subgraph "Network"
+        TS[Tailscale Mesh<br/>WireGuard VPN]
+        CF[Cloudflare Tunnel<br/>HTTPS Access]
+    end
+
+    subgraph "Monitoring"
+        UM[Umami<br/>Analytics]
+        UK[Uptime Kuma<br/>Health Check]
+    end
+
+    subgraph "Backup"
+        DUP[Duplicati<br/>→ Google Drive]
+    end
+
+    T --> M
+    T --> K
+    T --> A
+    M --> PG
+    A --> PG
+    A --> R2
+    C --> M
+    C --> K
+    C --> A
+    TS --> C
+    CF --> T
+    M --> UM
+    A --> UK
+    PG --> DUP
+
+    style C fill:#6366f1,stroke:#4f46e5,color:#fff
+    style T fill:#22c55e,stroke:#16a34a,color:#fff
+    style PG fill:#06b6d4,stroke:#0891b2,color:#fff
+    style TS fill:#f97316,stroke:#ea580c,color:#fff

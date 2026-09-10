@@ -6,10 +6,10 @@
 
 [![Architecture](assets/banner-tr.png)](https://stancona.org)
 
-[![Stack](https://img.shields.io/badge/stack-Astro%20%7C%20Remix%20%7C%20Preact-6366f1?style=for-the-badge)](<>)
-[![Components](https://img.shields.io/badge/components-85+-22c55e?style=for-the-badge)](<>)
-[![ADR](https://img.shields.io/badge/ADR-26-f97316?style=for-the-badge)](<>)
-[![License](https://img.shields.io/badge/license-MIT-eab308?style=for-the-badge)](<>)
+[![Stack](https://img.shields.io/badge/stack-Astro%20%7C%20Remix%20%7C%20Preact-6366f1?style=for-the-badge)](https://github.com/stancona/grimoire)
+[![Components](https://img.shields.io/badge/components-85+-22c55e?style=for-the-badge)](https://stancona.org/design)
+[![ADR](https://img.shields.io/badge/ADR-26-f97316?style=for-the-badge)](https://github.com/stancona/codex/tree/main/01-architecture/ADR)
+[![License](https://img.shields.io/badge/license-MIT-eab308?style=for-the-badge)](https://github.com/stancona/portfolio/blob/main/LICENSE)
 
 </div>
 
@@ -25,7 +25,7 @@ Stancona, tek kişilik geliştirme ekibiyle oluşturulmuş, masa üstü rol yapm
 
 ## Mimari
 
-![System Architecture](screenshots/tr/architecture/01-three-tier.png)
+![System Architecture](screenshots/en/architecture/01-three-tier.png)
 
 ### Üç Katmanlı Yüzey Mimarisi
 
@@ -41,7 +41,7 @@ Tüm yüzeyler `.stancona.org` üzerinde aile cookie'si ile same-origin routing 
 
 ## Tasarım Sistemi
 
-![Design System](screenshots/tr/design-system/01-overview.png)
+![Design System](screenshots/en/design-system/01-overview.png)
 
 daisyUI 5 + Tailwind CSS v4 üzerine inşa edilmiş 85+ üretim hazırı Preact bileşeni ve 74 interaktif showcase sayfası.
 
@@ -56,15 +56,15 @@ daisyUI 5 + Tailwind CSS v4 üzerine inşa edilmiş 85+ üretim hazırı Preact 
 | **Yerleşim**       | 8          | Drawer, footer, hero, ayırıcı                   |
 | **Mockup**         | 3          | Tarayıcı, telefon, pencere                      |
 
-![Button Variants](screenshots/tr/design-system/04-button-variants.png)
+![Button Variants](screenshots/en/design-system/06-button-variants.png)
 
-![Card Examples](screenshots/tr/design-system/05-card-examples.png)
+![Card Examples](screenshots/en/design-system/10-card-examples.png)
 
 ---
 
 ## Keep — Tüketici PWA
 
-![Keep Home](screenshots/tr/keep-pwa/01-home.png)
+![Keep Home](screenshots/en/keep-pwa/01-home.png)
 
 Etkinlik keşfi, QR kodlu bilet yönetimi ve lig sıralamaları için mobil öncelikli Progressive Web App. IndexedDB + Workbox ile tam çevrimdışı destek.
 
@@ -77,13 +77,13 @@ Etkinlik keşfi, QR kodlu bilet yönetimi ve lig sıralamaları için mobil önc
 | PWA kurulum istemi  | ✅                       |
 | Capacitor mobil     | 🔄 Planlanıyor           |
 
-![Tickets QR](screenshots/tr/keep-pwa/03-tickets-qr.png)
+![Tickets QR](screenshots/en/keep-pwa/03-tickets-qr.png)
 
 ---
 
 ## Admin Paneli
 
-![Dashboard](screenshots/tr/admin-panel/01-dashboard.png)
+![Dashboard](screenshots/en/admin-panel/01-dashboard.png)
 
 Manifest tabanlı modül sistemi ve rol tabanlı erişim kontrolüne sahip modüler monolit backend.
 
@@ -95,13 +95,13 @@ Manifest tabanlı modül sistemi ve rol tabanlı erişim kontrolüne sahip modü
 | **API**           | `/api/v1/*`, 2 katmanlı rate limit |
 | **Auth**          | Email OTP (L0-L3 hesap merdiveni)  |
 
-![RBAC Roles](screenshots/tr/admin-panel/02-rbac-roles.png)
+![RBAC Roles](screenshots/en/admin-panel/02-login.png)
 
 ---
 
 ## Altyapı
 
-![Infrastructure](screenshots/tr/infrastructure/01-coolify-stack.png)
+![Infrastructure](screenshots/en/infrastructure/01-coolify-stack.png)
 
 Self-hosted, maliyet-etkin, güvenli altyapı.
 
@@ -119,7 +119,7 @@ Self-hosted, maliyet-etkin, güvenli altyapı.
 
 ## AI Orkestrasyon
 
-![LangGraph Flow](screenshots/tr/ai-orchestration/01-langgraph-flow.png)
+![LangGraph Flow](screenshots/en/ai-orchestration/01-langgraph-flow.png)
 
 | Bileşen          | Amaç                      |
 | ---------------- | ------------------------- |
