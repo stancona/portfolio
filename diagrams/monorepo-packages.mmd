@@ -1,0 +1,47 @@
+graph TB
+    subgraph "Monorepo Root"
+        TR[Turborepo]
+        PN[pnpm v10 Catalog]
+    end
+
+    subgraph "Apps"
+        MAIN["apps/main — Astro 7<br/>stancona.org"]
+        KEEP["apps/keep — Preact SPA<br/>keep.stancona.org"]
+        APP["apps/app — Remix 3<br/>app.stancona.org"]
+    end
+
+    subgraph "Packages"
+        UI["@stancona/ui<br/>85+ Preact Components"]
+        UISTYLE["@stancona/ui-style<br/>Runtime-agnostic Style Data"]
+        DB["@stancona/db<br/>Drizzle ORM Schemas"]
+        I18N["@stancona/i18n<br/>TR/EN Dictionaries"]
+        STORAGE["@stancona/storage<br/>Cloudflare R2"]
+        AGENTS["@stancona/agents<br/>LangGraph.js"]
+        TAILWIND["@stancona/tailwind-config<br/>Theme SSOT"]
+        TSCONFIG["@stancona/tsconfig<br/>Shared Config"]
+    end
+
+    TR --> MAIN
+    TR --> KEEP
+    TR --> APP
+
+    MAIN --> UI
+    MAIN --> I18N
+    MAIN --> TAILWIND
+
+    KEEP --> UI
+    KEEP --> I18N
+    KEEP --> STORAGE
+
+    APP --> DB
+    APP --> STORAGE
+    APP --> AGENTS
+
+    UI --> UISTYLE
+    UI --> TAILWIND
+
+    style MAIN fill:#6366f1,stroke:#4f46e5,color:#fff
+    style KEEP fill:#22c55e,stroke:#16a34a,color:#fff
+    style APP fill:#f97316,stroke:#ea580c,color:#fff
+    style UI fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style DB fill:#06b6d4,stroke:#0891b2,color:#fff

@@ -1,0 +1,34 @@
+sequenceDiagram
+    participant U as User
+    participant A as Apex (Astro)
+    participant K as Keep (Preact)
+    participant App as App (Remix)
+    participant DB as PostgreSQL
+
+    Note over U,DB: Session Establishment
+    U->>A: Visit stancona.org
+    A->>A: Render static page (ISR/SSG)
+    A-->>U: Response with session cookie
+
+    Note over U,DB: Same-Origin API Call
+    U->>K: Navigate to keep.stancona.org
+    K->>App: API call (same-origin, family cookie)
+    App->>App: Validate session (L0: email check)
+    App->>DB: Query data
+    DB-->>App: Result
+    App-->>K: JSON response
+    K-->>U: Render data
+
+    Note over U,DB: Authenticated Flow
+    U->>App: Login request (OTP)
+    App->>App: Generate OTP → Email
+    U->>App: Verify OTP
+    App->>App: Upgrade to L1 session
+    App-->>U: Set session cookie
+
+    Note over U,DB: Admin Flow
+    U->>App: Access /admin/*
+    App->>App: Check RBAC (L2+ role required)
+    App->>DB: Query with role context
+    DB-->>App: Authorized data
+    App-->>U: Admin interface

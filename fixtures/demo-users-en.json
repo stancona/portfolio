@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-09-10T00:00:00Z",
+  "notice": "All data is fictional. Used for portfolio showcase purposes only.",
+  "users": [
+    {
+      "id": "usr_01",
+      "name": "Artemis Starweaver",
+      "email": "artemis@stancona-demo.com",
+      "role": "Player",
+      "level": 12,
+      "leaguePoints": 2847,
+      "avatar": "assets/avatars/artemis.png",
+      "joinedAt": "2025-03-15T10:00:00Z",
+      "preferredLanguage": "en"
+    },
+    {
+      "id": "usr_02",
+      "name": "Shadow Elf",
+      "email": "shadow@stancona-demo.com",
+      "role": "Game Master",
+      "level": 20,
+      "leaguePoints": 5120,
+      "avatar": "assets/avatars/shadow.png",
+      "joinedAt": "2024-11-20T14:30:00Z",
+      "preferredLanguage": "en"
+    },
+    {
+      "id": "usr_03",
+      "name": "Flame Blade",
+      "email": "flame@stancona-demo.com",
+      "role": "Player",
+      "level": 8,
+      "leaguePoints": 1523,
+      "avatar": "assets/avatars/flame.png",
+      "joinedAt": "2025-06-01T09:15:00Z",
+      "preferredLanguage": "en"
+    },
+    {
+      "id": "usr_04",
+      "name": "Dark Master",
+      "email": "dark@stancona-demo.com",
+      "role": "Admin",
+      "level": 25,
+      "leaguePoints": 9999,
+      "avatar": "assets/avatars/dark.png",
+      "joinedAt": "2024-06-01T08:00:00Z",
+      "preferredLanguage": "en"
+    },
+    {
+      "id": "usr_05",
+      "name": "Crystal Sage",
+      "email": "crystal@stancona-demo.com",
+      "role": "Player",
+      "level": 15,
+      "leaguePoints": 3210,
+      "avatar": "assets/avatars/crystal.png",
+      "joinedAt": "2025-01-10T16:45:00Z",
+      "preferredLanguage": "en"
+    }
+  ]
+}

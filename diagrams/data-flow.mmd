@@ -1,0 +1,37 @@
+graph LR
+    subgraph "Controller Layer"
+        C1[Route Action]
+        C2[Form Validation]
+        C3[Response]
+    end
+
+    subgraph "Service Layer"
+        S1[Business Logic]
+        S2[Authorization]
+        S3[Data Transformation]
+    end
+
+    subgraph "Repository Layer"
+        R1[Drizzle Query]
+        R2[SQL Builder]
+        R3[Migration]
+    end
+
+    subgraph "Storage"
+        DB[(PostgreSQL 18)]
+        R2B[(Cloudflare R2)]
+    end
+
+    C1 --> S1
+    C2 --> S2
+    S1 --> R1
+    S2 --> R1
+    S3 --> R2B
+    R1 --> DB
+    R2 --> DB
+    R3 --> DB
+
+    style C1 fill:#f97316,stroke:#ea580c,color:#fff
+    style S1 fill:#6366f1,stroke:#4f46e5,color:#fff
+    style R1 fill:#22c55e,stroke:#16a34a,color:#fff
+    style DB fill:#06b6d4,stroke:#0891b2,color:#fff

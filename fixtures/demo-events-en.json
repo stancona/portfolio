@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-09-10T00:00:00Z",
+  "notice": "All data is fictional. Used for portfolio showcase purposes only.",
+  "events": [
+    {
+      "id": "evt_01",
+      "name": "Dark Cavern Adventure",
+      "description": "Navigate the treacherous underground caves filled with goblins and ancient traps.",
+      "date": "2026-09-15T19:00:00Z",
+      "location": "Stancona Studio",
+      "gameMaster": "Shadow Elf",
+      "currentPlayers": 4,
+      "maxPlayers": 6,
+      "levelRange": "5-10",
+      "status": "upcoming",
+      "tags": ["dungeon", "beginner-friendly", "4-hour"]
+    },
+    {
+      "id": "evt_02",
+      "name": "Dragon Slayer Tournament",
+      "description": "Epic battle against the Ancient Red Dragon. Only the bravest heroes survive.",
+      "date": "2026-09-22T20:00:00Z",
+      "location": "Online (Discord)",
+      "gameMaster": "Dark Master",
+      "currentPlayers": 8,
+      "maxPlayers": 8,
+      "levelRange": "15-20",
+      "status": "full",
+      "tags": ["boss-fight", "competitive", "epic"]
+    },
+    {
+      "id": "evt_03",
+      "name": "Mystic Forest Trail",
+      "description": "A peaceful journey through the enchanted forest, discovering hidden fairy villages.",
+      "date": "2026-09-28T18:30:00Z",
+      "location": "Stancona Studio",
+      "gameMaster": "Artemis Starweaver",
+      "currentPlayers": 2,
+      "maxPlayers": 5,
+      "levelRange": "1-5",
+      "status": "upcoming",
+      "tags": ["exploration", "roleplay", "family-friendly"]
+    },
+    {
+      "id": "evt_04",
+      "name": "Shadow Realm Conquest",
+      "description": "Infiltrate the Shadow Realm and defeat the Lich King before he awakens.",
+      "date": "2026-10-05T19:00:00Z",
+      "location": "Stancona Studio",
+      "gameMaster": "Shadow Elf",
+      "currentPlayers": 3,
+      "maxPlayers": 6,
+      "levelRange": "10-15",
+      "status": "upcoming",
+      "tags": ["dark", "strategic", "multi-session"]
+    }
+  ]
+}

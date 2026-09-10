@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-09-10T00:00:00Z",
+  "notice": "All data is fictional. Used for portfolio showcase purposes only.",
+  "products": [
+    {
+      "id": "prd_01",
+      "name": "Dark Dungeon Map",
+      "category": "3D Print",
+      "price": 450.0,
+      "currency": "TRY",
+      "description": "Highly detailed resin-printed dungeon battle map with removable terrain pieces.",
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 24,
+      "images": ["products/dark-dungeon-1.png", "products/dark-dungeon-2.png"],
+      "tags": ["battle-map", "resin", "modular"]
+    },
+    {
+      "id": "prd_02",
+      "name": "Dragon Figure Set",
+      "category": "3D Print",
+      "price": 890.0,
+      "currency": "TRY",
+      "description": "5-piece dragon figure collection. Ancient Red, Shadow, Crystal, Storm, and Elder dragons.",
+      "inStock": true,
+      "rating": 4.9,
+      "reviewCount": 12,
+      "images": ["products/dragon-set-1.png", "products/dragon-set-2.png"],
+      "tags": ["figures", "dragons", "collectible"]
+    },
+    {
+      "id": "prd_03",
+      "name": "Player's Black Journal",
+      "category": "Printed Goods",
+      "price": 180.0,
+      "currency": "TRY",
+      "description": "Character sheet holder and session notebook with TTRPG-themed cover art.",
+      "inStock": false,
+      "rating": 4.7,
+      "reviewCount": 31,
+      "images": ["products/journal-1.png"],
+      "tags": ["journal", "character-sheet", "notebook"]
+    },
+    {
+      "id": "prd_04",
+      "name": "Dice Tower - Wizard Tower",
+      "category": "3D Print",
+      "price": 650.0,
+      "currency": "TRY",
+      "description": "Functional dice tower shaped like a wizard's tower. Rolls dice through spiral staircase.",
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 18,
+      "images": ["products/dice-tower-1.png"],
+      "tags": ["dice", "tower", "functional"]
+    }
+  ]
+}

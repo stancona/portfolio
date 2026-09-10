@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-09-10T00:00:00Z",
+  "notice": "Tüm veriler kurgusaldır. Yalnızca portföy gösterimi için kullanılır.",
+  "tickets": [
+    {
+      "id": "tkt_01",
+      "eventId": "evt_01",
+      "eventName": "Karanlık Mağara Macerası",
+      "userId": "usr_01",
+      "userName": "Artemis Yıldız",
+      "seatNumber": "A3",
+      "qrCode": "STC-TKT-001-DCA-2026",
+      "status": "confirmed",
+      "purchasedAt": "2026-08-20T14:30:00Z",
+      "price": 0,
+      "currency": "TRY"
+    },
+    {
+      "id": "tkt_02",
+      "eventId": "evt_01",
+      "eventName": "Karanlık Mağara Macerası",
+      "userId": "usr_03",
+      "userName": "Ateş Bıçağı",
+      "seatNumber": "B1",
+      "qrCode": "STC-TKT-002-DCA-2026",
+      "status": "confirmed",
+      "purchasedAt": "2026-08-21T09:15:00Z",
+      "price": 0,
+      "currency": "TRY"
+    },
+    {
+      "id": "tkt_03",
+      "eventId": "evt_03",
+      "eventName": "Gizemli Orman Yolu",
+      "userId": "usr_01",
+      "userName": "Artemis Yıldız",
+      "seatNumber": "C2",
+      "qrCode": "STC-TKT-003-MFT-2026",
+      "status": "confirmed",
+      "purchasedAt": "2026-09-01T11:00:00Z",
+      "price": 0,
+      "currency": "TRY"
+    },
+    {
+      "id": "tkt_04",
+      "eventId": "evt_04",
+      "eventName": "Gölge Alemi Fethi",
+      "userId": "usr_02",
+      "userName": "Karanlık Elf",
+      "seatNumber": "GM-1",
+      "qrCode": "STC-TKT-004-SRC-2026",
+      "status": "confirmed",
+      "purchasedAt": "2026-09-05T16:45:00Z",
+      "price": 0,
+      "currency": "TRY",
+      "isGameMaster": true
+    }
+  ]
+}

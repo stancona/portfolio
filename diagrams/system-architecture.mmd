@@ -1,0 +1,67 @@
+graph TB
+    subgraph "Apex — stancona.org"
+        A1[Astro 7 + Preact Islands]
+        A2[SEO / Content]
+        A3[Blog / Changelog]
+        A4[Shop / Studio]
+        A5[Design System Showcase]
+    end
+
+    subgraph "Keep — keep.stancona.org"
+        K1[Preact SPA + Vite]
+        K2[Events]
+        K3[Tickets + QR]
+        K4[League]
+        K5[PWA + Offline]
+    end
+
+    subgraph "App — app.stancona.org"
+        R1[Remix 3]
+        R2[Auth — OTP L0-L3]
+        R3[API /api/v1/*]
+        R4[Admin Panel — RBAC]
+        R5[Module Registry]
+    end
+
+    subgraph "Shared Packages"
+        P1["@stancona/ui — 85+ Components"]
+        P2["@stancona/ui-style — Literal Class Maps"]
+        P3["@stancona/db — Drizzle ORM"]
+        P4["@stancona/i18n — TR/EN"]
+        P5["@stancona/storage — R2/S3"]
+        P6["@stancona/agents — LangGraph.js"]
+        P7["@stancona/tailwind-config — Theme SSOT"]
+    end
+
+    subgraph "Infrastructure"
+        I1[PostgreSQL 18]
+        I2[Cloudflare R2]
+        I3[Coolify PaaS]
+        I4[Tailscale Mesh]
+        I5[Cloudflare Tunnel]
+    end
+
+    A1 --> P1
+    A1 --> P4
+    A1 --> P7
+    K1 --> P1
+    K1 --> P4
+    K1 --> P5
+    R1 --> P3
+    R1 --> P5
+    R1 --> P6
+
+    A1 -.->|Same-Origin| R3
+    K1 -.->|Same-Origin| R3
+
+    R3 --> I1
+    P5 --> I2
+    I3 --> I3
+    I4 --> I4
+    I5 --> I5
+
+    style A1 fill:#6366f1,stroke:#4f46e5,color:#fff
+    style K1 fill:#22c55e,stroke:#16a34a,color:#fff
+    style R1 fill:#f97316,stroke:#ea580c,color:#fff
+    style P1 fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style P3 fill:#06b6d4,stroke:#0891b2,color:#fff

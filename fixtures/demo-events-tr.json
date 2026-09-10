@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-09-10T00:00:00Z",
+  "notice": "Tüm veriler kurgusaldır. Yalnızca portföy gösterimi için kullanılır.",
+  "events": [
+    {
+      "id": "evt_01",
+      "name": "Karanlık Mağara Macerası",
+      "description": "Goblinler ve antik tuzaklarla dolu tehlikeli yeraltı mağaralarında yolculuk.",
+      "date": "2026-09-15T19:00:00Z",
+      "location": "Stancona Stüdyo",
+      "gameMaster": "Karanlık Elf",
+      "currentPlayers": 4,
+      "maxPlayers": 6,
+      "levelRange": "5-10",
+      "status": "upcoming",
+      "tags": ["zindan", "yeni başlayanlar", "4-saat"]
+    },
+    {
+      "id": "evt_02",
+      "name": "Ejderha Savaşı Turnuvası",
+      "description": "Kadim Kızıl Ejderha'ya karşı destansı savaş. Yalnızca en cesur kahramanlar hayatta kalır.",
+      "date": "2026-09-22T20:00:00Z",
+      "location": "Online (Discord)",
+      "gameMaster": "Gölge Ustası",
+      "currentPlayers": 8,
+      "maxPlayers": 8,
+      "levelRange": "15-20",
+      "status": "full",
+      "tags": ["boss-savaşı", "rekabetçi", "epik"]
+    },
+    {
+      "id": "evt_03",
+      "name": "Gizemli Orman Yolu",
+      "description": "Büyülü orman Boyunca huzurlu bir yolculuk, gizli peri köylerini keşfetmek.",
+      "date": "2026-09-28T18:30:00Z",
+      "location": "Stancona Stüdyo",
+      "gameMaster": "Artemis Yıldız",
+      "currentPlayers": 2,
+      "maxPlayers": 5,
+      "levelRange": "1-5",
+      "status": "upcoming",
+      "tags": ["keşif", "rol yapma", "aile-dostu"]
+    },
+    {
+      "id": "evt_04",
+      "name": "Gölge Alemi Fethi",
+      "description": "Gölge Alemi'ne sızın ve Lich Kral'ı uyanmadan önce yenin.",
+      "date": "2026-10-05T19:00:00Z",
+      "location": "Stancona Stüdyo",
+      "gameMaster": "Karanlık Elf",
+      "currentPlayers": 3,
+      "maxPlayers": 6,
+      "levelRange": "10-15",
+      "status": "upcoming",
+      "tags": ["karanlık", "stratejik", "çok oturumlu"]
+    }
+  ]
+}

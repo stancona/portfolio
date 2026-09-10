@@ -1,0 +1,59 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-09-10T00:00:00Z",
+  "notice": "Tüm veriler kurgusaldır. Yalnızca portföy gösterimi için kullanılır.",
+  "products": [
+    {
+      "id": "prd_01",
+      "name": "Karanlık Zindan Haritası",
+      "category": "3D Baskı",
+      "price": 450.0,
+      "currency": "TRY",
+      "description": "Çıkarılabilir arazi parçalarıyla yüksek detaylı resin baskı zindan savaş haritası.",
+      "inStock": true,
+      "rating": 4.8,
+      "reviewCount": 24,
+      "images": ["products/dark-dungeon-1.png", "products/dark-dungeon-2.png"],
+      "tags": ["savaş-haritası", "resin", "modüler"]
+    },
+    {
+      "id": "prd_02",
+      "name": "Ejderha Figür Seti",
+      "category": "3D Baskı",
+      "price": 890.0,
+      "currency": "TRY",
+      "description": "5 parçalı ejderha figür koleksiyonu. Kadim Kızıl, Gölge, Kristal, Fırtına ve Çağnıl ejderhalar.",
+      "inStock": true,
+      "rating": 4.9,
+      "reviewCount": 12,
+      "images": ["products/dragon-set-1.png", "products/dragon-set-2.png"],
+      "tags": ["figürler", "ejderhalar", "koleksiyon"]
+    },
+    {
+      "id": "prd_03",
+      "name": "Oyuncu Kara Defteri",
+      "category": "Basılı Ürün",
+      "price": 180.0,
+      "currency": "TRY",
+      "description": "TTRPG temalı kapak sanatıyla karakter kağıdı tutucusu ve oturum not defteri.",
+      "inStock": false,
+      "rating": 4.7,
+      "reviewCount": 31,
+      "images": ["products/journal-1.png"],
+      "tags": ["defter", "karakter-kağıdı", "not-defteri"]
+    },
+    {
+      "id": "prd_04",
+      "name": "Zar Kulesi - Büyücü Kulesi",
+      "category": "3D Baskı",
+      "price": 650.0,
+      "currency": "TRY",
+      "description": "Büyücü kulesi şeklinde fonksiyonel zar kulesi. Spiral merdivenden zar atar.",
+      "inStock": true,
+      "rating": 4.6,
+      "reviewCount": 18,
+      "images": ["products/dice-tower-1.png"],
+      "tags": ["zar", "kule", "fonksiyonel"]
+    }
+  ]
+}

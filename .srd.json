@@ -1,0 +1,35 @@
+{
+  "schema": "https://raw.githubusercontent.com/stancona/srd/main/srd.schema.json",
+  "version": "1.1.1",
+  "preset": "solo-docs",
+  "slots": {
+    "ORG": "stancona",
+    "REPO": "portfolio",
+    "DOC_LANG": "en",
+    "INTERACTION_LANG": "tr",
+    "TOOLCHAIN": "bash, imagemagick, mermaid",
+    "VERIFY_CMDS": "bash scripts/sanitize-checklist.sh",
+    "DEFAULT_BRANCH": "main",
+    "SSOT_REPO": "",
+    "AREAS": "screenshots, diagrams, fixtures, assets",
+    "BOARD_URL": "",
+    "MODULES": "github-automation",
+    "CAPTURE_LANG": "tr"
+  },
+  "managedFiles": {
+    "AGENTS.md": "",
+    "INDEX.md": "",
+    "README.md": "",
+    "README.tr.md": "",
+    "CHANGELOG.md": "",
+    "CONTRIBUTING.md": "",
+    "opencode.json": "",
+    ".editorconfig": "",
+    ".gitattributes": "",
+    ".gitignore": ""
+  },
+  "drift": {
+    "lastSync": "2026-09-10T00:00:00Z",
+    "history": []
+  }
+}

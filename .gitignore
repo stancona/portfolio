@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Processed screenshots (generated)
+processed/
+
+# Raw screenshots (captured, not committed)
+raw-screenshots/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ImageMagick temporary files
+magick-*
+
+# Logs
+*.log

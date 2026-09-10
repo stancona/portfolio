@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/schema.json",
+  "instructions": [
+    "All documentation files MUST be written in English.",
+    "User interaction language MUST be in Turkish.",
+    "Screenshots must be sanitized before committing — no real data allowed.",
+    "TTRPG theme consistency across all dummy data.",
+    "Export screenshots at 2x DPR (retina quality)."
+  ],
+  "skills": [],
+  "mcpServers": {}
+}
