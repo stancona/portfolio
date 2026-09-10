@@ -16,6 +16,31 @@ jobs:
   capture:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres:18-alpine
+        env:
+          POSTGRES_DB: stancona_ci_db
+          POSTGRES_USER: stancona_ci_user
+          POSTGRES_PASSWORD: stancona_ci_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U stancona_ci_user"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DATABASE_URL: postgres://stancona_ci_user:stancona_ci_password@localhost:5432/stancona_ci_db
+      SESSION_SECRET: ci-only-session-secret-32-chars-minimum
+      COOKIE_DOMAIN: .stancona.localhost
+      AUTH_OTP_PEPPER: ci-only-otp-pepper-64-hex-chars-placeholder-value-0000000000
+      ADMIN_EMAILS: admin@stancona.org
+      API_ALLOWED_ORIGINS: http://keep.stancona.localhost:3004
+      RESEND_API_KEY: ""
+
     steps:
       - name: Checkout portfolio
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -45,6 +70,14 @@ jobs:
       - name: Install grimoire dependencies
         working-directory: grimoire
         run: pnpm install --frozen-lockfile
+
+      - name: Push schema to database
+        working-directory: grimoire
+        run: pnpm --filter @stancona/db db:push
+
+      - name: Seed roles
+        working-directory: grimoire
+        run: pnpm --filter @stancona/db db:seed
 
       - name: Install Playwright browser
         run: npx playwright install --with-deps chromium
