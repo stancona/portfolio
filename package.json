@@ -1,0 +1,20 @@
+{
+  "name": "@stancona/portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio showcase for the Stancona web ecosystem — screenshots, diagrams, and fixture data",
+  "license": "MIT",
+  "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stancona/portfolio.git"
+  },
+  "scripts": {
+    "capture:design": "node scripts/capture-en.js",
+    "capture:apps": "node scripts/capture-all.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.63.0",
+    "wait-on": "^9.0.0"
+  }
+}

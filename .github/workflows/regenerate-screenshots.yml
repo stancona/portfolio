@@ -1,0 +1,90 @@
+name: Regenerate Screenshots
+
+on:
+  repository_dispatch:
+    types: [grimoire-dev-merged]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: regenerate-screenshots
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout portfolio
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Checkout grimoire
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: stancona/grimoire
+          ref: dev
+          token: ${{ secrets.GRIMOIRE_TOKEN }}
+          path: grimoire
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b # v6.1.0
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install portfolio dependencies
+        run: npm ci
+
+      - name: Install grimoire dependencies
+        working-directory: grimoire
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Start dev servers
+        working-directory: grimoire
+        run: |
+          (cd apps/main && pnpm dev) &
+          (cd apps/keep && pnpm dev) &
+          (cd apps/app && pnpm dev) &
+          npx wait-on http://localhost:4321/en/ http://localhost:3004/ http://localhost:3000/ -t 180000
+
+      - name: Capture screenshots
+        run: |
+          node scripts/capture-en.js
+          node scripts/capture-all.js
+
+      - name: Copy into screenshots/en
+        run: |
+          cp raw-screenshots/design-system/*.png screenshots/en/design-system/
+          cp raw-screenshots/keep-pwa/*.png screenshots/en/keep-pwa/
+          cp raw-screenshots/admin-panel/*.png screenshots/en/admin-panel/
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add screenshots/en
+          if git diff --cached --quiet; then
+            echo "No screenshot changes detected"
+          else
+            SOURCE_SHA="${{ github.event.client_payload.sha || github.sha }}"
+            git commit -m "chore(screenshots): regenerate from grimoire@${SOURCE_SHA::7} [skip ci]"
+            git push
+          fi
+
+      - name: Upload raw screenshots on failure
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: raw-screenshots
+          path: raw-screenshots/
+          retention-days: 7
