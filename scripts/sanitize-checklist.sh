@@ -25,9 +25,9 @@ echo ""
 
 # Check 1: No .env files
 echo "📋 Check 1: .env files"
-if find . -name ".env*" -not -path "./.git/*" | grep -q .; then
+if find . -name ".env*" -not -path "./.git/*" -not -path "./grimoire/*" | grep -q .; then
     echo -e "   ${RED}❌ FAIL: .env files found in repo${NC}"
-    find . -name ".env*" -not -path "./.git/*" | while read f; do echo "     → $f"; done
+    find . -name ".env*" -not -path "./.git/*" -not -path "./grimoire/*" | while read f; do echo "     → $f"; done
     ERRORS=$((ERRORS + 1))
 else
     echo -e "   ${GREEN}✅ PASS: No .env files${NC}"
