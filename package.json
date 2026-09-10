@@ -10,11 +10,14 @@
     "url": "git+https://github.com/stancona/portfolio.git"
   },
   "scripts": {
-    "capture:design": "node scripts/capture-en.js",
-    "capture:apps": "node scripts/capture-all.js"
+    "capture:design": "node scripts/capture-design.js",
+    "capture:apps": "node scripts/capture-apps.js",
+    "capture:tr": "LOCALE=tr OUTDIR=raw-screenshots-tr node scripts/capture-design.js && LOCALE=tr OUTDIR=raw-screenshots-tr SKIP_KEEP=1 node scripts/capture-apps.js",
+    "prepare-db": "node scripts/prepare-capture-db.mjs"
   },
   "devDependencies": {
     "playwright": "^1.63.0",
+    "postgres": "^3.4.5",
     "wait-on": "^9.0.0"
   }
 }

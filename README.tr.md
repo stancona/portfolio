@@ -114,7 +114,7 @@ Tüm yüzeyler `.stancona.org` üzerinde aile cookie'si ile same-origin routing 
 
 ## Tasarım Sistemi
 
-![Design System](screenshots/en/design-system/01-overview.png)
+![Design System](screenshots/tr/design-system/01-overview.png)
 
 daisyUI 5 + Tailwind CSS v4 üzerine inşa edilmiş 85+ üretim hazırı Preact bileşeni ve 74 interaktif showcase sayfası.
 
@@ -129,9 +129,9 @@ daisyUI 5 + Tailwind CSS v4 üzerine inşa edilmiş 85+ üretim hazırı Preact 
 | **Yerleşim**       | 8          | Drawer, footer, hero, ayırıcı                   |
 | **Mockup**         | 3          | Tarayıcı, telefon, pencere                      |
 
-![Button Variants](screenshots/en/design-system/06-button-variants.png)
+![Button Variants](screenshots/tr/design-system/06-button-variants.png)
 
-![Card Examples](screenshots/en/design-system/10-card-examples.png)
+![Card Examples](screenshots/tr/design-system/10-card-examples.png)
 
 ---
 
@@ -156,7 +156,7 @@ Etkinlik keşfi, QR kodlu bilet yönetimi ve lig sıralamaları için mobil önc
 
 ## Admin Paneli
 
-![Dashboard](screenshots/en/admin-panel/01-dashboard.png)
+![Dashboard](screenshots/tr/admin-panel/01-dashboard.png)
 
 Manifest tabanlı modül sistemi ve rol tabanlı erişim kontrolüne sahip modüler monolit backend.
 
@@ -168,7 +168,7 @@ Manifest tabanlı modül sistemi ve rol tabanlı erişim kontrolüne sahip modü
 | **API**           | `/api/v1/*`, 2 katmanlı rate limit |
 | **Auth**          | Email OTP (L0-L3 hesap merdiveni)  |
 
-![RBAC Roles](screenshots/en/admin-panel/02-login.png)
+![RBAC Roles](screenshots/tr/admin-panel/02-login.png)
 
 ---
 

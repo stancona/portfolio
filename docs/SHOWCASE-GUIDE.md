@@ -59,14 +59,17 @@ All decisions documented in 26 ADRs.
 
 ## Freelancer Applications
 
-### Portfolio Attachment
+### Portfolio Attachment (PDF deck for private presentations)
 
-Use the portfolio README.md as a standalone document. Export as PDF:
+Best quality, zero tooling — GitHub renders Mermaid natively:
 
-```bash
-# Convert README to PDF (requires pandoc)
-pandoc README.md -o stancona-portfolio.pdf --pdf-engine=xelatex
-```
+1. Open `https://github.com/stancona/portfolio` in Chrome
+2. `File → Print → Destination: Save as PDF`
+3. Margins: Default, Background graphics: on
+
+Alternative (requires install): `brew install pandoc basictex` then
+`pandoc README.md -o stancona-portfolio.pdf --pdf-engine=xelatex`
+(note: Mermaid blocks render as code, not diagrams, in pandoc output).
 
 ### Email Template
 

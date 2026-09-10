@@ -70,7 +70,7 @@ fi
 echo ""
 echo "📋 Check 5: README references valid screenshot paths"
 if [ -f "README.md" ]; then
-    MISSING=$(grep -oP 'screenshots/[^)]+\.png' README.md 2>/dev/null | while read path; do
+    MISSING=$(grep -oE 'screenshots/[^)]+\.png' README.md 2>/dev/null | while read path; do
         if [ ! -f "$path" ]; then
             echo "$path"
         fi

@@ -90,16 +90,41 @@ jobs:
           (cd apps/app && pnpm dev) &
           npx wait-on http://localhost:4321/en/ http://localhost:3004/ http://localhost:3000/ -t 180000
 
-      - name: Capture screenshots
+      - name: Prepare capture database
+        run: node scripts/prepare-capture-db.mjs
+        env:
+          GRIMOIRE_APP_DIR: ${{ github.workspace }}/grimoire/apps/app
+
+      - name: Capture screenshots (EN)
+        env:
+          SHOWCASE_SESSION: ${{ env.SHOWCASE_SESSION }}
+          SHOWCASE_TOKEN: ${{ env.SHOWCASE_TOKEN }}
         run: |
-          node scripts/capture-en.js
-          node scripts/capture-all.js
+          node scripts/capture-design.js
+          node scripts/capture-apps.js
+
+      - name: Capture screenshots (TR)
+        env:
+          SHOWCASE_SESSION: ${{ env.SHOWCASE_SESSION }}
+          SHOWCASE_TOKEN: ${{ env.SHOWCASE_TOKEN }}
+        run: |
+          LOCALE=tr OUTDIR=raw-screenshots-tr node scripts/capture-design.js
+          LOCALE=tr OUTDIR=raw-screenshots-tr SKIP_KEEP=1 node scripts/capture-apps.js
 
       - name: Copy into screenshots/en
         run: |
           cp raw-screenshots/design-system/*.png screenshots/en/design-system/
           cp raw-screenshots/keep-pwa/*.png screenshots/en/keep-pwa/
           cp raw-screenshots/admin-panel/*.png screenshots/en/admin-panel/
+
+      - name: Copy into screenshots/tr
+        run: |
+          cp raw-screenshots-tr/design-system/*.png screenshots/tr/design-system/
+          cp raw-screenshots-tr/admin-panel/*.png screenshots/tr/admin-panel/
+          cp raw-screenshots/keep-pwa/*.png screenshots/tr/keep-pwa/
+
+      - name: Sanitize check
+        run: bash scripts/sanitize-checklist.sh
 
       - name: Commit and push
         run: |

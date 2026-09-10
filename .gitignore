@@ -6,6 +6,7 @@ processed/
 
 # Raw screenshots (captured, not committed)
 raw-screenshots/
+raw-screenshots-tr/
 
 # OS files
 .DS_Store

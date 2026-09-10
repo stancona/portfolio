@@ -1,205 +1,102 @@
 # Screenshot Capture Workflow
 
-Step-by-step guide for capturing screenshots from the Stancona live applications.
+How portfolio screenshots are produced — locally and in CI. Everything is
+scripted: manual DevTools captures are not used.
+
+---
+
+## Pipeline
+
+```
+grimoire dev servers (:4321 Astro, :3004 Keep, :3000 App)
+        │
+        ▼
+scripts/prepare-capture-db.mjs  → demo data guard + showcase session
+        │                           (SHOWCASE_SESSION cookie + SHOWCASE_TOKEN bearer)
+        ▼
+scripts/capture-design.js  →  Astro design system (shots.config.js)
+scripts/capture-apps.js    →  Keep PWA + admin panel + homepage
+        │
+        ▼
+raw-screenshots/  (+ raw-screenshots-tr/ for LOCALE=tr)
+        │
+        ▼
+screenshots/en/  +  screenshots/tr/
+```
+
+`shots.config.js` is the single source of truth for the shot list. CI
+(`.github/workflows/regenerate-screenshots.yml`) runs the same scripts after
+every grimoire `dev` merge, so any curation done in scripts survives
+regeneration.
 
 ---
 
 ## Prerequisites
 
-- [ ] Live grimoire instance running locally (`pnpm dev`)
-- [ ] Chrome/Edge browser with DevTools access
-- [ ] ImageMagick installed (`brew install imagemagick`)
-- [ ] Dummy data seeded in the local database
+- Grimoire dev servers running (`apps/main`, `apps/keep`, `apps/app`)
+- `npm install` in this repo (Playwright + `postgres` driver)
+- Playwright Chromium: `npx playwright install chromium`
+- Env: `DATABASE_URL`, `SESSION_SECRET` (from `grimoire/.env`),
+  `GRIMOIRE_APP_DIR` (path to `grimoire/apps/app`)
 
 ---
 
-## Step 1: Prepare the Environment
-
-### 1.1 Seed Dummy Data
-
-Before capturing, ensure the database has TTRPG-themed demo data:
-
-- Users: Artemis Starweaver, Shadow Elf, Flame Blade, Dark Master, Crystal Sage
-- Events: Dark Cavern Adventure, Dragon Slayer Tournament, Mystic Forest Trail
-- Products: Dark Dungeon Map, Dragon Figure Set, Player's Black Journal
-
-### 1.2 Set Browser Configuration
-
-Open Chrome DevTools (F12) and configure:
-
-1. **Device Toolbar:** Toggle on (Cmd+Shift+M on Mac)
-2. **Viewport:** 1440 x 900
-3. **Device Pixel Ratio:** 2x (for retina quality)
-4. **Theme:** Dark mode (match Stancona's default `dim` theme)
-
-### 1.3 Navigate to Target Page
-
-Open the application you want to capture:
-
-- **Design System:** `http://localhost:4321/design/overview`
-- **Keep PWA:** `http://localhost:3004`
-- **Admin Panel:** `http://localhost:3000/dashboard`
-
----
-
-## Step 2: Capture Screenshots
-
-### 2.1 Full Page Screenshot
-
-For pages with scrollable content:
-
-1. Open DevTools Console
-2. Run: `Cmd+Shift+P` → "Capture full size screenshot"
-3. Save to `raw-screenshots/` folder
-
-### 2.2 Specific Element Screenshot
-
-For individual components:
-
-1. Right-click the element → "Inspect"
-2. In DevTools: `Cmd+Shift+P` → "Capture node screenshot"
-3. Save to `raw-screenshots/` folder
-
-### 2.3 Viewport Screenshot
-
-For above-the-fold content:
-
-1. Ensure the content is visible in the viewport
-2. `Cmd+Shift+P` → "Capture screenshot"
-3. Save to `raw-screenshots/` folder
-
----
-
-## Step 3: Naming Convention
-
-Use consistent naming:
-
-```
-screenshots/
-├── en/
-│   ├── design-system/
-│   │   ├── 01-overview.png
-│   │   ├── 02-colors-theme.png
-│   │   ├── 03-typography.png
-│   │   └── ...
-│   ├── architecture/
-│   │   ├── 01-three-tier.png
-│   │   └── ...
-│   └── ...
-└── tr/
-    └── ... (same structure, Turkish UI)
-```
-
-**Naming pattern:** `XX-descriptive-name.png`
-
-- `XX` = two-digit sequence number
-- Use lowercase kebab-case
-- Be descriptive but concise
-
----
-
-## Step 4: Bilingual Screenshots
-
-For pages with visible text, capture in both languages:
-
-1. **English:** Set app language to EN → capture
-2. **Turkish:** Set app language to TR → capture
-3. Save to respective `screenshots/en/` and `screenshots/tr/` folders
-
----
-
-## Step 5: Process Images
-
-Run the image processing script:
+## Local run
 
 ```bash
-# Process raw screenshots into portfolio-ready assets
-./scripts/process-images.sh raw-screenshots processed
+# 1. Seed-guard demo data + mint showcase session (additive only,
+#    never truncates — safe against the local dev database)
+export GRIMOIRE_APP_DIR=/path/to/grimoire/apps/app
+set -a; source /path/to/grimoire/.env; set +a
+OUT=$(node scripts/prepare-capture-db.mjs)
+export SHOWCASE_SESSION=$(echo "$OUT" | python3 -c "import sys,json; print(json.load(sys.stdin)['sessionCookie'])")
+export SHOWCASE_TOKEN=$(echo "$OUT" | python3 -c "import sys,json; print(json.load(sys.stdin)['sessionToken'])")
 
-# Output:
-# processed/full/      → 2880x1800 (retina)
-# processed/thumbnail/ → 720x450 (gallery grid)
-# processed/og/        → 1200x630 (Open Graph)
+# 2. Capture EN set
+node scripts/capture-design.js
+node scripts/capture-apps.js
+
+# 3. Capture TR set (Astro TR lives at root paths, no /tr/ prefix)
+LOCALE=tr OUTDIR=raw-screenshots-tr node scripts/capture-design.js
+LOCALE=tr OUTDIR=raw-screenshots-tr SKIP_KEEP=1 node scripts/capture-apps.js
+
+# 4. Copy into place
+cp raw-screenshots/design-system/*.png screenshots/en/design-system/
+cp raw-screenshots/keep-pwa/*.png screenshots/en/keep-pwa/
+cp raw-screenshots/admin-panel/*.png screenshots/en/admin-panel/
+cp raw-screenshots-tr/design-system/*.png screenshots/tr/design-system/
+cp raw-screenshots-tr/admin-panel/*.png screenshots/tr/admin-panel/
+
+# 5. Sanitize + commit
+bash scripts/sanitize-checklist.sh
 ```
 
 ---
 
-## Step 6: Sanitize
+## Guarantees (verified per shot before commit)
 
-Run the sanitize checklist before committing:
-
-```bash
-./scripts/sanitize-checklist.sh
-```
-
-Verify:
-
-- [ ] No real user data visible
-- [ ] No API keys or tokens
-- [ ] No localhost URLs
-- [ ] No email addresses with real domains
-- [ ] All dummy data is TTRPG-themed
+- **No Astro dev toolbar:** capture scripts remove `<astro-dev-toolbar>` from
+  the DOM and assert its absence — a present toolbar throws and fails the run
+  (locally and in CI) instead of committing polluted shots.
+- **Language purity:** `en/` = English UI, `tr/` = Turkish UI. Known
+  exceptions live in grimoire source (showcase code samples, email
+  placeholders) and are tracked as a fix list, not worked around here.
+- **Authenticated surfaces:** the admin dashboard (`/dashboard`) and Keep
+  tickets/profile/league render behind a minted showcase session —
+  no login walls, no 404s, no empty states in committed shots.
 
 ---
 
-## Step 7: Commit
+## Environment quirks (documented, not fought)
 
-```bash
-git add screenshots/ processed/
-git commit -m "chore(portfolio): add design system screenshots EN/TR"
-```
-
----
-
-## Screenshot Checklist
-
-### Design System (15-20 screenshots)
-
-| #   | Page                   | Focus Area         | Notes                           |
-| --- | ---------------------- | ------------------ | ------------------------------- |
-| 1   | `/design/overview`     | Full page          | Hero + category cards           |
-| 2   | `/design/colors-theme` | Theme palette      | Color swatches + theme switcher |
-| 3   | `/design/typography`   | Font samples       | Full hierarchy                  |
-| 4   | `/design/button`       | Button grid        | All size/color/style variants   |
-| 5   | `/design/card`         | Card examples      | 3-4 card types                  |
-| 6   | `/design/modal`        | Modal open state   | Dialog + backdrop               |
-| 7   | `/design/navbar`       | Navbar             | Logo + menu + language switcher |
-| 8   | `/design/alert`        | Alert examples     | Success/error/warning           |
-| 9   | `/design/badge`        | Badge variants     | Color + size combos             |
-| 10  | `/design/table`        | Table              | With dummy data                 |
-| 11  | `/design/form`         | Form elements      | Input, select, checkbox, toggle |
-| 12  | `/design/toast`        | Toast notification | Success/error                   |
-| 13  | `/design/tooltip`      | Tooltip examples   | Different positions             |
-| 14  | `/design/hero`         | Hero blocks        | CTA sections                    |
-| 15  | `/design/accordion`    | Accordion          | Open/closed states              |
-
-### Keep PWA (5-6 screenshots)
-
-| #   | Page       | Focus Area               | Notes                |
-| --- | ---------- | ------------------------ | -------------------- |
-| 1   | Home       | Welcome + ticket summary | Dummy ticket cards   |
-| 2   | Events     | Event list               | TTRPG events         |
-| 3   | My Tickets | Ticket + QR code         | QR must be readable  |
-| 4   | League     | Standings table          | Dummy scores         |
-| 5   | Profile    | User profile             | TTRPG character info |
-| 6   | Offline    | Service worker state     | "Offline" badge      |
-
-### Admin Panel (4-5 screenshots)
-
-| #   | Page            | Focus Area         | Notes              |
-| --- | --------------- | ------------------ | ------------------ |
-| 1   | Dashboard       | KPI cards + charts | Dummy statistics   |
-| 2   | RBAC            | Role table         | 15 role list       |
-| 3   | Module System   | Module registry    | Manifest structure |
-| 4   | Command Palette | Cmd+K open         | Search + results   |
-| 5   | Link Management | CRUD table         | Dummy links        |
-
-### Architecture (4-5 diagrams)
-
-| #   | Content                 | Tool    | Notes                       |
-| --- | ----------------------- | ------- | --------------------------- |
-| 1   | Three-tier architecture | Mermaid | Astro → Remix → PWA         |
-| 2   | Monorepo structure      | Mermaid | apps/ + packages/           |
-| 3   | Same-origin routing     | Mermaid | Family cookie flow          |
-| 4   | Auth flow (L0-L3)       | Mermaid | OTP → Passkey               |
-| 5   | Data flow               | Mermaid | Controller → Service → Repo |
+- **Keep API proxy:** Keep's Vite proxy targets `app.stancona.localhost`
+  (port 80, dead in capture envs). Capture scripts reroute `**/api/**`
+  to `localhost:3000` via Playwright `route.fetch` + `fulfill` (CORS-safe).
+- **Keep scroll-reveal:** `[data-reveal]` cards stay invisible until
+  scrolled into view. Captures force `.is-visible` and disable transitions.
+- **Keep is Turkish-only:** hardcoded TR strings + `"lang": "tr"` manifest.
+  Keep shots live under `en/keep-pwa/` with a README note until grimoire
+  ships Keep i18n.
+- **Astro TR at root:** `/design`, `/` (no `/tr/` prefix); EN at `/en/*`.
+- **Never run `db:seed` locally:** it truncates users/events/tickets.
+  `prepare-capture-db.mjs` is additive-only by design.

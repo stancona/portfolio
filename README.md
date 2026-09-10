@@ -141,6 +141,8 @@ All surfaces share same-origin routing with a family cookie on `.stancona.org` �
 
 A mobile-first Progressive Web App for event discovery, ticket management with QR codes, and league standings. Full offline support via IndexedDB + Workbox.
 
+> **Note:** Keep ships Turkish-first (`lang: tr` in the PWA manifest) — screenshots below show the native Turkish UI.
+
 | Feature            | Status                   |
 | ------------------ | ------------------------ |
 | Event discovery    | ✅                       |
