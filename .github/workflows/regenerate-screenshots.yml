@@ -121,7 +121,6 @@ jobs:
         run: |
           cp raw-screenshots-tr/design-system/*.png screenshots/tr/design-system/
           cp raw-screenshots-tr/admin-panel/*.png screenshots/tr/admin-panel/
-          cp raw-screenshots/keep-pwa/*.png screenshots/tr/keep-pwa/
 
       - name: Sanitize check
         run: bash scripts/sanitize-checklist.sh
