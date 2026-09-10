@@ -29,121 +29,38 @@ Stancona, tek kişilik geliştirme ekibiyle oluşturulmuş, masa üstü rol yapm
 
 ```mermaid
 graph TB
-    subgraph "Apex — stancona.org"
-        A1[Astro 7 + Preact Islands]
-        A2[SEO / Content]
-        A3[Blog / Changelog]
-        A4[Shop / Studio]
-        A5[Design System Showcase]
-    end
+    U(("🌍 User")) --> T["Traefik + Cloudflare Tunnel"]
+    T --> A["Apex<br/>stancona.org<br/>Astro 7 + Preact"]
+    T --> K["Keep<br/>keep.stancona.org<br/>Preact SPA"]
+    T --> R["App<br/>app.stancona.org<br/>Remix 3"]
+    A --> PKG["@stancona/*<br/>ui · db · i18n · storage · agents"]
+    K --> PKG
+    R --> PKG
+    R --> DB[("PostgreSQL 18")]
+    R --> S[("Cloudflare R2")]
 
-    subgraph "Keep — keep.stancona.org"
-        K1[Preact SPA + Vite]
-        K2[Events]
-        K3[Tickets + QR]
-        K4[League]
-        K5[PWA + Offline]
-    end
-
-    subgraph "App — app.stancona.org"
-        R1[Remix 3]
-        R2[Auth — OTP L0-L3]
-        R3[API /api/v1/*]
-        R4[Admin Panel — RBAC]
-        R5[Module Registry]
-    end
-
-    subgraph "Shared Packages"
-        P1["@stancona/ui — 85+ Components"]
-        P2["@stancona/ui-style — Literal Class Maps"]
-        P3["@stancona/db — Drizzle ORM"]
-        P4["@stancona/i18n — TR/EN"]
-        P5["@stancona/storage — R2/S3"]
-        P6["@stancona/agents — LangGraph.js"]
-        P7["@stancona/tailwind-config — Theme SSOT"]
-    end
-
-    subgraph "Infrastructure"
-        I1[PostgreSQL 18]
-        I2[Cloudflare R2]
-        I3[Coolify PaaS]
-        I4[Tailscale Mesh]
-        I5[Cloudflare Tunnel]
-    end
-
-    A1 --> P1
-    A1 --> P4
-    A1 --> P7
-    K1 --> P1
-    K1 --> P4
-    K1 --> P5
-    R1 --> P3
-    R1 --> P5
-    R1 --> P6
-
-    A1 -.->|Same-Origin| R3
-    K1 -.->|Same-Origin| R3
-
-    R3 --> I1
-    P5 --> I2
-
-    style A1 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style K1 fill:#22c55e,stroke:#16a34a,color:#fff
-    style R1 fill:#f97316,stroke:#ea580c,color:#fff
-    style P1 fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style P3 fill:#06b6d4,stroke:#0891b2,color:#fff
+    style A fill:#6366f1,stroke:#4f46e5,color:#fff
+    style K fill:#22c55e,stroke:#16a34a,color:#fff
+    style R fill:#f97316,stroke:#ea580c,color:#fff
+    style PKG fill:#8b5cf6,stroke:#7c3aed,color:#fff
+    style DB fill:#06b6d4,stroke:#0891b2,color:#fff
 ```
 
 ### Monorepo Paket Yapısı
 
 ```mermaid
 graph TB
-    subgraph "Monorepo Root"
-        TR[Turborepo]
-        PN[pnpm v10 Catalog]
-    end
-
-    subgraph "Apps"
-        MAIN["apps/main — Astro 7<br/>stancona.org"]
-        KEEP["apps/keep — Preact SPA<br/>keep.stancona.org"]
-        APP["apps/app — Remix 3<br/>app.stancona.org"]
-    end
-
-    subgraph "Packages"
-        UI["@stancona/ui<br/>85+ Preact Components"]
-        UISTYLE["@stancona/ui-style<br/>Runtime-agnostic Style Data"]
-        DB["@stancona/db<br/>Drizzle ORM Schemas"]
-        I18N["@stancona/i18n<br/>TR/EN Dictionaries"]
-        STORAGE["@stancona/storage<br/>Cloudflare R2"]
-        AGENTS["@stancona/agents<br/>LangGraph.js"]
-        TAILWIND["@stancona/tailwind-config<br/>Theme SSOT"]
-        TSCONFIG["@stancona/tsconfig<br/>Shared Config"]
-    end
-
-    TR --> MAIN
-    TR --> KEEP
-    TR --> APP
-
-    MAIN --> UI
-    MAIN --> I18N
-    MAIN --> TAILWIND
-
-    KEEP --> UI
-    KEEP --> I18N
-    KEEP --> STORAGE
-
-    APP --> DB
-    APP --> STORAGE
-    APP --> AGENTS
-
-    UI --> UISTYLE
-    UI --> TAILWIND
+    TR["Turborepo · pnpm v10 Catalog"] --> MAIN["apps/main<br/>Astro 7"]
+    TR --> KEEP["apps/keep<br/>Preact SPA"]
+    TR --> APP["apps/app<br/>Remix 3"]
+    MAIN --> PKG["packages/ — 8 packages<br/>ui · ui-style · db · i18n<br/>storage · agents · tailwind-config · tsconfig"]
+    KEEP --> PKG
+    APP --> PKG
 
     style MAIN fill:#6366f1,stroke:#4f46e5,color:#fff
     style KEEP fill:#22c55e,stroke:#16a34a,color:#fff
     style APP fill:#f97316,stroke:#ea580c,color:#fff
-    style UI fill:#8b5cf6,stroke:#7c3aed,color:#fff
-    style DB fill:#06b6d4,stroke:#0891b2,color:#fff
+    style PKG fill:#8b5cf6,stroke:#7c3aed,color:#fff
 ```
 
 ### Kimlik Doğrulama Akışı
@@ -259,61 +176,19 @@ Manifest tabanlı modül sistemi ve rol tabanlı erişim kontrolüne sahip modü
 
 ```mermaid
 graph TB
-    subgraph "Coolify PaaS"
-        C[Coolify Dashboard]
-    end
-
-    subgraph "Applications"
-        M[Main — stancona.org<br/>Astro 7]
-        K[Keep — keep.stancona.org<br/>Preact SPA]
-        A[App — app.stancona.org<br/>Remix 3]
-    end
-
-    subgraph "Reverse Proxy"
-        T[Traefik<br/>SSL Termination]
-    end
-
-    subgraph "Database"
-        PG[(PostgreSQL 18<br/>Coolify Managed)]
-    end
-
-    subgraph "Storage"
-        R2[Cloudflare R2<br/>S3-compatible]
-    end
-
-    subgraph "Network"
-        TS[Tailscale Mesh<br/>WireGuard VPN]
-        CF[Cloudflare Tunnel<br/>HTTPS Access]
-    end
-
-    subgraph "Monitoring"
-        UM[Umami<br/>Analytics]
-        UK[Uptime Kuma<br/>Health Check]
-    end
-
-    subgraph "Backup"
-        DUP[Duplicati<br/>→ Google Drive]
-    end
-
-    T --> M
-    T --> K
-    T --> A
-    M --> PG
+    CF["Cloudflare Tunnel<br/>HTTPS Access"] --> T["Traefik — SSL Termination"]
+    T --> M["Main<br/>Astro 7"]
+    T --> K["Keep<br/>Preact SPA"]
+    T --> A["App<br/>Remix 3"]
+    M --> PG[("PostgreSQL 18")]
     A --> PG
-    A --> R2
-    C --> M
-    C --> K
-    C --> A
-    TS --> C
-    CF --> T
-    M --> UM
-    A --> UK
-    PG --> DUP
+    A --> R2[("Cloudflare R2")]
+    PG --> DUP["Duplicati → Google Drive"]
+    T --> OPS["Coolify · Umami · Uptime Kuma"]
 
-    style C fill:#6366f1,stroke:#4f46e5,color:#fff
     style T fill:#22c55e,stroke:#16a34a,color:#fff
     style PG fill:#06b6d4,stroke:#0891b2,color:#fff
-    style TS fill:#f97316,stroke:#ea580c,color:#fff
+    style CF fill:#f97316,stroke:#ea580c,color:#fff
 ```
 
 Self-hosted, maliyet-etkin, güvenli altyapı.
@@ -334,44 +209,18 @@ Self-hosted, maliyet-etkin, güvenli altyapı.
 
 ```mermaid
 graph TB
-    subgraph "AI Orchestration Layer"
-        LG[LangGraph.js<br/>State Graphs]
-        LF[Langfuse<br/>Tracing & Observability]
-        LL[LiteLLM<br/>Model Gateway]
-    end
-
-    subgraph "LLM Providers"
-        O[OpenAI]
-        AN[Anthropic]
-        GO[Google]
-        locally[Local Models]
-    end
-
-    subgraph "Job Queue"
-        PG[pg-boss<br/>Background Workers]
-        DB[(PostgreSQL)]
-    end
-
-    subgraph "Application Layer"
-        APP[Remix App<br/>API Routes]
-        AGENTS["@stancona/agents<br/>LangGraph Workflows"]
-    end
-
-    APP --> AGENTS
-    AGENTS --> LG
-    LG --> LF
-    LG --> LL
-    LL --> O
-    LL --> AN
-    LL --> GO
-    LL --> locally
-    PG --> DB
-    AGENTS --> PG
+    APP["Remix App — API Routes"] --> AG["@stancona/agents"]
+    AG --> LG["LangGraph.js — State Graphs"]
+    AG --> LF["Langfuse — Tracing"]
+    AG --> QB["pg-boss — Job Queue"]
+    QB --> DB[("PostgreSQL")]
+    LG --> LL["LiteLLM — Model Gateway"]
+    LL --> P["OpenAI · Anthropic · Google · Local"]
 
     style LG fill:#6366f1,stroke:#4f46e5,color:#fff
     style LF fill:#22c55e,stroke:#16a34a,color:#fff
     style LL fill:#f97316,stroke:#ea580c,color:#fff
-    style PG fill:#06b6d4,stroke:#0891b2,color:#fff
+    style DB fill:#06b6d4,stroke:#0891b2,color:#fff
 ```
 
 | Bileşen          | Amaç                      |
@@ -386,42 +235,15 @@ graph TB
 ## Veri Akışı
 
 ```mermaid
-graph LR
-    subgraph "Controller Layer"
-        C1[Route Action]
-        C2[Form Validation]
-        C3[Response]
-    end
+graph TB
+    C["Controller<br/>route action · validation · response"] --> S["Service<br/>business logic · authorization · transform"]
+    S --> R["Repository<br/>Drizzle ORM · query builder · migrations"]
+    R --> DB[("PostgreSQL 18")]
+    S --> R2[("Cloudflare R2")]
 
-    subgraph "Service Layer"
-        S1[Business Logic]
-        S2[Authorization]
-        S3[Data Transformation]
-    end
-
-    subgraph "Repository Layer"
-        R1[Drizzle Query]
-        R2[SQL Builder]
-        R3[Migration]
-    end
-
-    subgraph "Storage"
-        DB[(PostgreSQL 18)]
-        R2B[(Cloudflare R2)]
-    end
-
-    C1 --> S1
-    C2 --> S2
-    S1 --> R1
-    S2 --> R1
-    S3 --> R2B
-    R1 --> DB
-    R2 --> DB
-    R3 --> DB
-
-    style C1 fill:#f97316,stroke:#ea580c,color:#fff
-    style S1 fill:#6366f1,stroke:#4f46e5,color:#fff
-    style R1 fill:#22c55e,stroke:#16a34a,color:#fff
+    style C fill:#f97316,stroke:#ea580c,color:#fff
+    style S fill:#6366f1,stroke:#4f46e5,color:#fff
+    style R fill:#22c55e,stroke:#16a34a,color:#fff
     style DB fill:#06b6d4,stroke:#0891b2,color:#fff
 ```
 

@@ -50,11 +50,12 @@ const OUTPUT = 'raw-screenshots/design-system';
       // Force dismiss any remaining banners
       await page.evaluate(() => {
         localStorage.setItem('stancona:lang-banner-dismissed', '1');
-        localStorage.setItem('astro-dev-toolbar-visible', 'false');
         document.querySelectorAll('[class*="consent"], [class*="cookie"]').forEach(el => el.remove());
         document.querySelectorAll('[class*="language-banner"]').forEach(el => el.remove());
+        document.querySelector('astro-dev-toolbar')?.remove();
       });
       await page.waitForTimeout(500);
+      await page.evaluate(() => document.querySelector('astro-dev-toolbar')?.remove());
       await page.screenshot({ path: `${OUTPUT}/${p.name}.png`, fullPage: true });
       console.log(`✅ ${p.name}`);
     } catch (e) {

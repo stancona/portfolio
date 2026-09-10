@@ -36,7 +36,7 @@ const ADMIN_PAGES = [
       await keepPage.waitForTimeout(1500);
       await keepPage.evaluate(() => {
         localStorage.setItem('stancona:lang-banner-dismissed', '1');
-        localStorage.setItem('astro-dev-toolbar-visible', 'false');
+        document.querySelector('astro-dev-toolbar')?.remove();
       });
       await keepPage.screenshot({ path: `raw-screenshots/keep-pwa/${p.name}.png`, fullPage: true });
       console.log(`  ✅ ${p.name}`);
@@ -63,7 +63,7 @@ const ADMIN_PAGES = [
       await adminPage.goto(url, { waitUntil: 'networkidle', timeout: 15000 });
       await adminPage.waitForTimeout(1500);
       await adminPage.evaluate(() => {
-        localStorage.setItem('astro-dev-toolbar-visible', 'false');
+        document.querySelector('astro-dev-toolbar')?.remove();
       });
       await adminPage.screenshot({ path: `raw-screenshots/admin-panel/${p.name}.png`, fullPage: true });
       console.log(`  ✅ ${p.name}`);
@@ -90,9 +90,10 @@ const ADMIN_PAGES = [
     await homePage.waitForTimeout(1500);
     await homePage.evaluate(() => {
       localStorage.setItem('stancona:lang-banner-dismissed', '1');
-      localStorage.setItem('astro-dev-toolbar-visible', 'false');
+      document.querySelector('astro-dev-toolbar')?.remove();
     });
     await homePage.waitForTimeout(500);
+    await homePage.evaluate(() => document.querySelector('astro-dev-toolbar')?.remove());
     await homePage.screenshot({ path: 'raw-screenshots/homepage/01-homepage-full.png', fullPage: true });
     await homePage.screenshot({ path: 'raw-screenshots/homepage/02-hero-viewport.png' });
     console.log('  ✅ homepage');
