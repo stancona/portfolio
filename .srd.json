@@ -1,13 +1,16 @@
 {
   "_comment": "Drift anchor (srd TEMPLATE.md R-12). Modernized 2026-09-11 from the legacy v1.1.1 schema (managedFiles/drift object, no ref) to the v2.x anchor format during the SDLC v2 rollout (PLAN-0028). AGENTS.md converged to the payload v2.0.1 fenced regions in the same pass (adopt mode).",
   "template": "stancona/srd",
-  "version": "2.0.1",
-  "ref": "refs/tags/v2.0.1",
+  "version": "2.2.0",
+  "ref": "refs/tags/v2.2.0",
   "instantiatedAt": "2026-09-10",
   "adopted": true,
   "preset": "solo-docs",
   "lineBudget": 150,
-  "modules": ["github-automation"],
+  "modules": [
+    "github-automation",
+    "sdlc"
+  ],
   "slots": {
     "ORG": "stancona",
     "REPO": "portfolio",
@@ -17,12 +20,20 @@
     "VERIFY_CMDS": "bash scripts/sanitize-checklist.sh",
     "DEFAULT_BRANCH": "main",
     "SSOT_REPO": "",
-    "AREAS": ["screenshots", "diagrams", "fixtures", "assets"],
+    "AREAS": [
+      "screenshots",
+      "diagrams",
+      "fixtures",
+      "assets"
+    ],
     "BOARD_URL": "",
-    "MODULES": ["github-automation"],
+    "MODULES": [
+      "github-automation"
+    ],
     "CAPTURE_LANG": "Turkish",
     "TEMPLATE_SOURCE": "stancona/srd",
-    "DECISIONS_DIR": "docs/decisions"
+    "DECISIONS_DIR": "docs/decisions",
+    "INTENT_DIR": "intent"
   },
   "managedRegions": [
     "AGENTS.md:§1 boundaries",
@@ -34,7 +45,11 @@
     "AGENTS.md:§11 references"
   ],
   "files": {
-    "AGENTS.md": "sha256:b04c8ea17527f7326959481a9320546ade087ff3518246c68ab0285914b13b99"
+    "AGENTS.md": "sha256:b04c8ea17527f7326959481a9320546ade087ff3518246c68ab0285914b13b99",
+    "REVIEW.md": "sha256:4dbf9dcd1ade0ed7dbb4ee52050a26413032d370ce1c41db960e2053d5d9c104",
+    "intent/templates/intent.md": "sha256:be00e5c7a988f4d568ab2c8e6f2dd990c8ffd75698f670c3f8a85f1ffe66522f",
+    "intent/templates/spec.md": "sha256:938c2c5b7a19b04f6e1fdcf0676bca51abca199485c57bd6bf3f6544907325a7",
+    "scripts/check-sdlc.mjs": "sha256:9337e0c34ab15027c7313959b083ae013428ac2c43517e8b8a211a5a9e309e39"
   },
   "syncedAt": "2026-09-11",
   "syncHistory": [
@@ -47,6 +62,17 @@
         ".srd.json (legacy schema -> v2.x anchor format)"
       ],
       "reason": "srd v2.0.0 [M:sdlc] rollout; portfolio skipped the v1.2.x convergence pass and jumped straight to v2.0.1. sdlc module not enabled (content repo; plans-only)."
+    },
+    {
+      "from": "2.0.1",
+      "to": "2.2.0",
+      "date": "2026-09-11",
+      "applied": [
+        "sdlc module enabled (light variant: intent = ops requests/incidents, spec only for architecture changes)",
+        "intent/templates/{intent,spec}.md + REVIEW.md + scripts/check-sdlc.mjs",
+        "AGENTS.md §3: artifact-chain bullet (module-conditional, now on)"
+      ],
+      "reason": "F4 light adoption (PLAN-0028, codex ADR-0031/0032): ops intents + chain gate; CI wiring optional for docs repos."
     }
   ]
 }

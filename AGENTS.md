@@ -36,6 +36,9 @@ diagrams reference.
   format — Context / Options / Decision / Consequences (TEMPLATE.md §5.3).
 - Plans: `docs/plans/<N>-<kebab>.md` scaffolded from `docs/plans/template.md`, linked to an issue —
   docs/meta work, and repositories without `[M:sdlc]`.
+- Product work: artifact chain `intent/<YYYY-MM-DD-<slug>>/{intent,spec,plan}.md` — one
+  folder per work item, born at capture, permanent record; gates and board mapping in
+  TEMPLATE.md §5.5; `REVIEW.md` at the repo root is the review policy.
 - **Scope test before writing any decision:** could this bind another repository? Yes → it belongs
   in the federation SSOT (`stancona/codex`) — ask the human first (R-01). Otherwise write it here.
 - **Immutable history:** never delete or rewrite a decision body. New number + old status
