@@ -1,35 +1,52 @@
 {
-  "schema": "https://raw.githubusercontent.com/stancona/srd/main/srd.schema.json",
-  "version": "1.1.1",
+  "_comment": "Drift anchor (srd TEMPLATE.md R-12). Modernized 2026-09-11 from the legacy v1.1.1 schema (managedFiles/drift object, no ref) to the v2.x anchor format during the SDLC v2 rollout (PLAN-0028). AGENTS.md converged to the payload v2.0.1 fenced regions in the same pass (adopt mode).",
+  "template": "stancona/srd",
+  "version": "2.0.1",
+  "ref": "refs/tags/v2.0.1",
+  "instantiatedAt": "2026-09-10",
+  "adopted": true,
   "preset": "solo-docs",
+  "lineBudget": 150,
+  "modules": ["github-automation"],
   "slots": {
     "ORG": "stancona",
     "REPO": "portfolio",
-    "DOC_LANG": "en",
-    "INTERACTION_LANG": "tr",
-    "TOOLCHAIN": "bash, imagemagick, mermaid",
+    "DOC_LANG": "English",
+    "INTERACTION_LANG": "Turkish",
+    "TOOLCHAIN": "bash, imagemagick, mermaid, Playwright",
     "VERIFY_CMDS": "bash scripts/sanitize-checklist.sh",
     "DEFAULT_BRANCH": "main",
     "SSOT_REPO": "",
-    "AREAS": "screenshots, diagrams, fixtures, assets",
+    "AREAS": ["screenshots", "diagrams", "fixtures", "assets"],
     "BOARD_URL": "",
-    "MODULES": "github-automation",
-    "CAPTURE_LANG": "tr"
+    "MODULES": ["github-automation"],
+    "CAPTURE_LANG": "Turkish",
+    "TEMPLATE_SOURCE": "stancona/srd",
+    "DECISIONS_DIR": "docs/decisions"
   },
-  "managedFiles": {
-    "AGENTS.md": "",
-    "INDEX.md": "",
-    "README.md": "",
-    "README.tr.md": "",
-    "CHANGELOG.md": "",
-    "CONTRIBUTING.md": "",
-    "opencode.json": "",
-    ".editorconfig": "",
-    ".gitattributes": "",
-    ".gitignore": ""
+  "managedRegions": [
+    "AGENTS.md:§1 boundaries",
+    "AGENTS.md:§2 language",
+    "AGENTS.md:§3 decisions",
+    "AGENTS.md:§8 delegation",
+    "AGENTS.md:§9 safety",
+    "AGENTS.md:§10 verification",
+    "AGENTS.md:§11 references"
+  ],
+  "files": {
+    "AGENTS.md": "sha256:b04c8ea17527f7326959481a9320546ade087ff3518246c68ab0285914b13b99"
   },
-  "drift": {
-    "lastSync": "2026-09-10T00:00:00Z",
-    "history": []
-  }
+  "syncedAt": "2026-09-11",
+  "syncHistory": [
+    {
+      "from": "1.1.1",
+      "to": "2.0.1",
+      "date": "2026-09-11",
+      "applied": [
+        "AGENTS.md (adopt-mode convergence: legacy unfenced 63-line file rewritten into payload v2.0.1 skeleton with 7 fenced regions; all local content preserved)",
+        ".srd.json (legacy schema -> v2.x anchor format)"
+      ],
+      "reason": "srd v2.0.0 [M:sdlc] rollout; portfolio skipped the v1.2.x convergence pass and jumped straight to v2.0.1. sdlc module not enabled (content repo; plans-only)."
+    }
+  ]
 }
