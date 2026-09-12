@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stancona — Full-Stack TTRPG Platform</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Alegreya:wght@400;500;700&family=Alegreya+Sans:wght@400;500;700&display=swap');
+
+    :root {
+      --primary: #6f42c1;
+      --primary-light: #8b5cf6;
+      --secondary: #0e7490;
+      --accent: #f59e0b;
+      --bg: #0f0f14;
+      --bg-card: #1a1a24;
+      --bg-card-alt: #16161f;
+      --text: #e4e4e7;
+      --text-muted: #a1a1aa;
+      --border: #27272a;
+      --success: #22c55e;
+      --warning: #f59e0b;
+      --error: #ef4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Alegreya', serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 20mm 25mm;
+      page-break-after: always;
+      background: var(--bg);
+    }
+
+    .page:last-child { page-break-after: avoid; }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    h3 {
+      font-family: 'Alegreya Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-top: 16px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    p { margin-bottom: 10px; color: var(--text); }
+
+    .subtitle {
+      font-family: 'Alegreya Sans', sans-serif;
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 4px;
+      font-family: 'Alegreya Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .badge-primary { background: rgba(111,66,193,0.2); color: var(--primary-light); }
+    .badge-secondary { background: rgba(14,116,144,0.2); color: var(--secondary); }
+    .badge-accent { background: rgba(245,158,11,0.2); color: var(--accent); }
+    .badge-success { background: rgba(34,197,94,0.2); color: var(--success); }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .card-alt { background: var(--bg-card-alt); }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    .stat {
+      text-align: center;
+      padding: 12px;
+    }
+
+    .stat-value {
+      font-family: 'Cinzel', serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary-light);
+    }
+
+    .stat-label {
+      font-family: 'Alegreya Sans', sans-serif;
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 12px;
+    }
+
+    th, td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+    }
+
+    th {
+      font-family: 'Alegreya Sans', sans-serif;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 10px;
+    }
+
+    td { color: var(--text); }
+
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      margin: 20px 0;
+    }
+
+    .footer {
+      margin-top: 30px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-family: 'Alegreya Sans', sans-serif;
+      font-size: 10px;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .arch-box {
+      background: var(--bg-card-alt);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 8px;
+    }
+
+    .arch-box h4 {
+      font-family: 'Alegreya Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary-light);
+      margin-bottom: 4px;
+    }
+
+    .arch-box p {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      background: rgba(111,66,193,0.15);
+      color: var(--primary-light);
+      border-radius: 3px;
+      font-family: 'Alegreya Sans', sans-serif;
+      font-size: 10px;
+      margin-right: 4px;
+      margin-bottom: 4px;
+    }
+
+    @media print {
+      body { background: white; color: #1a1a2e; }
+      .page { background: white; box-shadow: none; }
+      .card { border-color: #e5e7eb; }
+      h1, h2, h3 { color: #1a1a2e; }
+      .stat-value { color: #6f42c1; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PAGE 1: Cover -->
+<div class="page">
+  <div style="text-align: center; padding-top: 80px;">
+    <h1 style="font-size: 42px; margin-bottom: 16px;">STANCONA</h1>
+    <p class="subtitle" style="font-size: 18px; margin-bottom: 8px;">Full-Stack TTRPG Platform</p>
+    <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 40px;">
+      Solo-built • Production-grade • AI-native development
+    </p>
+
+    <div class="grid-3" style="max-width: 500px; margin: 0 auto 40px;">
+      <div class="stat">
+        <div class="stat-value">85+</div>
+        <div class="stat-label">Components</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">32</div>
+        <div class="stat-label">ADRs</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Apps</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 60px;">
+      <p style="font-size: 11px; color: var(--text-muted);">
+        Emin Boydak · 2026 · stancona.org
+      </p>
+      <p style="font-size: 10px; color: var(--text-muted); margin-top: 4px;">
+        Private & Proprietary — All rights reserved
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: Overview + Architecture -->
+<div class="page">
+  <h2>Overview</h2>
+  <p>
+    Stancona is a solo-built, production-grade full-stack web ecosystem for tabletop RPG communities.
+    It combines a modern marketing site, a consumer mobile PWA, and an admin panel — all powered by
+    a shared design system, AI-native development workflows, and self-hosted infrastructure.
+  </p>
+
+  <div class="grid-3" style="margin: 16px 0;">
+    <div class="card">
+      <h3>Apex</h3>
+      <p style="font-size: 12px;">Marketing site, blog, shop, design system showcase. Astro 7 + Preact islands.</p>
+    </div>
+    <div class="card">
+      <h3>Keep</h3>
+      <p style="font-size: 12px;">Consumer PWA. Events, tickets with QR, league, offline-first. Preact + Vite.</p>
+    </div>
+    <div class="card">
+      <h3>App</h3>
+      <p style="font-size: 12px;">Admin panel. RBAC, module system, command palette. Remix 3 + Preact.</p>
+    </div>
+  </div>
+
+  <h2>Architecture</h2>
+
+  <div class="grid-2">
+    <div class="arch-box">
+      <h4>Surface Layer</h4>
+      <p>Three distinct surfaces: Apex (public), Keep (consumer), App (admin). Each optimized for its audience.</p>
+    </div>
+    <div class="arch-box">
+      <h4>Monorepo</h4>
+      <p>Turborepo + pnpm catalog. 3 apps, 8 shared packages. Unified build, test, and deploy.</p>
+    </div>
+    <div class="arch-box">
+      <h4>Authentication</h4>
+      <p>OTP-based login, RBAC (5 roles), session tiers. Server-first, progressive enhancement.</p>
+    </div>
+    <div class="arch-box">
+      <h4>Infrastructure</h4>
+      <p>Coolify PaaS, Traefik reverse proxy, Cloudflare CDN + tunnel, PostgreSQL 18.</p>
+    </div>
+  </div>
+
+  <h2>Design System</h2>
+  <p>
+    85+ components across 8 categories (Data Display, Navigation, Feedback, Actions, Data Input,
+    Layout, Foundations, Overlays). Built with daisyUI 5 + Tailwind v4. Every component has
+    automated SSR tests and fixture-based parity verification between Preact and Remix runtimes.
+  </p>
+
+  <div class="grid-3">
+    <div class="card card-alt" style="text-align: center;">
+      <div class="stat-value" style="font-size: 20px;">85+</div>
+      <div class="stat-label">Components</div>
+    </div>
+    <div class="card card-alt" style="text-align: center;">
+      <div class="stat-value" style="font-size: 20px;">8</div>
+      <div class="stat-label">Categories</div>
+    </div>
+    <div class="card card-alt" style="text-align: center;">
+      <div class="stat-value" style="font-size: 20px;">2</div>
+      <div class="stat-label">Runtimes</div>
+    </div>
+  </div>
+
+  <div class="footer">Stancona — Full-Stack TTRPG Platform · Page 2</div>
+</div>
+
+<!-- PAGE 3: Tech Stack + Infrastructure -->
+<div class="page">
+  <h2>Tech Stack</h2>
+
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Technology</th><th>Version</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Frontend</td><td>Astro, Preact, Remix</td><td>7 / 10 / 3</td></tr>
+      <tr><td>Styling</td><td>Tailwind CSS, daisyUI</td><td>4 / 5</td></tr>
+      <tr><td>Build</td><td>Turborepo, pnpm, Vite</td><td>— / 10 / 8</td></tr>
+      <tr><td>Database</td><td>PostgreSQL, Drizzle ORM</td><td>18 / latest</td></tr>
+      <tr><td>Runtime</td><td>Node.js</td><td>24+</td></tr>
+      <tr><td>Infrastructure</td><td>Coolify, Traefik, Cloudflare</td><td>4.3 / 3.6 / —</td></tr>
+      <tr><td>AI/ML</td><td>LangGraph.js, Langfuse, LiteLLM</td><td>— / — / 1.98</td></tr>
+      <tr><td>Mobile</td><td>Preact SPA, Workbox, IndexedDB</td><td>PWA</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Infrastructure</h2>
+
+  <div class="grid-2">
+    <div class="arch-box">
+      <h4>Coolify PaaS</h4>
+      <p>Self-hosted PaaS on Ubuntu 24.04. Manages all deployments, databases, and proxy configuration. Single Docker daemon.</p>
+    </div>
+    <div class="arch-box">
+      <h4>Cloudflare</h4>
+      <p>CDN, DDoS protection, DNS, SSL termination. Wildcard certs via DNS challenge. Tunnel for admin access.</p>
+    </div>
+    <div class="arch-box">
+      <h4>PostgreSQL 18</h4>
+      <p>Shared platform database. Logical databases for each service (app, umami, listmonk, paperclip, litellm).</p>
+    </div>
+    <div class="arch-box">
+      <h4>AI Stack</h4>
+      <p>Paperclip orchestration, LiteLLM gateway, Hermes agent. Per-company isolation. Budget enforcement.</p>
+    </div>
+  </div>
+
+  <h2>Development Workflow</h2>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>AI-Native SDLC</h3>
+      <p style="font-size: 12px;">
+        Artifact chain: Intent → Spec → Plan → Build → Review. Deterministic CI gate (check-sdlc.mjs).
+        Human gates at each step. Immutable decision records (32 ADRs).
+      </p>
+    </div>
+    <div class="card">
+      <h3>Quality Pipeline</h3>
+      <p style="font-size: 12px;">
+        Biome linting, TypeScript strict mode, Prettier formatting. SSR unit tests per component.
+        Fixture-based parity verification across Preact and Remix runtimes.
+      </p>
+    </div>
+  </div>
+
+  <h2>Key Metrics</h2>
+
+  <div class="grid-3">
+    <div class="card card-alt" style="text-align: center;">
+      <div class="stat-value" style="font-size: 20px;">32</div>
+      <div class="stat-label">ADRs</div>
+    </div>
+    <div class="card card-alt" style="text-align: center;">
+      <div class="stat-value" style="font-size: 20px;">100%</div>
+      <div class="stat-label">Test Coverage</div>
+    </div>
+    <div class="card card-alt" style="text-align: center;">
+      <div class="stat-value" style="font-size: 20px;">1</div>
+      <div class="stat-label">Developer</div>
+    </div>
+  </div>
+
+  <div class="footer">Stancona — Full-Stack TTRPG Platform · Page 3</div>
+</div>
+
+<!-- PAGE 4: AI + Closing -->
+<div class="page">
+  <h2>AI Orchestration</h2>
+
+  <p>
+    Stancona integrates AI at every layer: development (OpenCode), content generation, agent
+    orchestration (Paperclip), and LLM gateway (LiteLLM). The system supports per-company
+    isolation, budget enforcement, and provider fallback.
+  </p>
+
+  <div class="grid-2">
+    <div class="arch-box">
+      <h4>Paperclip</h4>
+      <p>Agent orchestration control plane. Companies, budgets, heartbeats, audit. CEO: Hermes, CTO: OpenCode.</p>
+    </div>
+    <div class="arch-box">
+      <h4>LiteLLM</h4>
+      <p>Unified LLM gateway. 135+ providers, virtual keys, cost tracking, failover. Single API endpoint.</p>
+    </div>
+    <div class="arch-box">
+      <h4>Hermes</h4>
+      <p>Personal AI life assistant. Persistent memory, cron jobs, MCP tools. Connects to Paperclip and LiteLLM.</p>
+    </div>
+    <div class="arch-box">
+      <h4>Artifact Chain</h4>
+      <p>Intent → Spec → Plan. Human gates at each step. Deterministic CI enforcement. Immutable audit trail.</p>
+    </div>
+  </div>
+
+  <h2>Project Ecosystem</h2>
+
+  <table>
+    <thead>
+      <tr><th>Repository</th><th>Purpose</th><th>Stack</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>stancona/codex</td><td>Federation SSOT — decisions, business rules</td><td>Markdown, MADR, SRD</td></tr>
+      <tr><td>stancona/grimoire</td><td>Application monorepo (3 apps, 8 packages)</td><td>Astro, Remix, Preact, Turborepo</td></tr>
+      <tr><td>stancona/portfolio</td><td>Project showcase — screenshots, diagrams, assets</td><td>Playwright, Mermaid</td></tr>
+      <tr><td>stancona/srd</td><td>Agentic system template</td><td>SRD, OpenCode, AI-native</td></tr>
+      <tr><td>eminboydak/ops</td><td>Personal infrastructure — Coolify, Traefik, services</td><td>Docker Compose, Coolify</td></tr>
+      <tr><td>eminboydak/chronicle</td><td>Personal SSOT — decisions, goals, capture</td><td>SRD solo-docs, artifact chain</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-divider"></div>
+
+  <div style="text-align: center; margin-top: 20px;">
+    <h2 style="border: none; margin-bottom: 8px;">Built with Purpose</h2>
+    <p style="color: var(--text-muted); font-size: 12px; margin-bottom: 20px;">
+      Every decision is documented. Every component is tested. Every deployment is automated.
+    </p>
+
+    <div class="grid-3" style="max-width: 450px; margin: 0 auto;">
+      <div class="card card-alt" style="text-align: center; padding: 12px;">
+        <div style="font-size: 20px; margin-bottom: 4px;">📋</div>
+        <div style="font-family: 'Alegreya Sans', sans-serif; font-size: 11px; color: var(--text-muted);">32 ADRs</div>
+      </div>
+      <div class="card card-alt" style="text-align: center; padding: 12px;">
+        <div style="font-size: 20px; margin-bottom: 4px;">🧪</div>
+        <div style="font-family: 'Alegreya Sans', sans-serif; font-size: 11px; color: var(--text-muted);">85+ Components</div>
+      </div>
+      <div class="card card-alt" style="text-align: center; padding: 12px;">
+        <div style="font-size: 20px; margin-bottom: 4px;">🚀</div>
+        <div style="font-family: 'Alegreya Sans', sans-serif; font-size: 11px; color: var(--text-muted);">AI-Native</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    stancona.org · github.com/stancona · 2026<br>
+    Private & Proprietary — All rights reserved
+  </div>
+</div>
+
+</body>
+</html>
