@@ -9,7 +9,7 @@
 [![Stack](https://img.shields.io/badge/stack-Astro%20%7C%20Remix%20%7C%20Preact-6366f1?style=for-the-badge)](https://github.com/stancona/grimoire)
 [![Components](https://img.shields.io/badge/components-85+-22c55e?style=for-the-badge)](https://stancona.org/design)
 [![ADR](https://img.shields.io/badge/ADR-26-f97316?style=for-the-badge)](https://github.com/stancona/codex/tree/main/01-architecture/ADR)
-[![License](https://img.shields.io/badge/license-MIT-eab308?style=for-the-badge)](https://github.com/stancona/portfolio/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-proprietary-6b7280?style=for-the-badge)](https://github.com/stancona/portfolio/blob/main/LICENSE)
 
 </div>
 
@@ -137,7 +137,7 @@ daisyUI 5 + Tailwind CSS v4 üzerine inşa edilmiş 85+ üretim hazırı Preact 
 
 ## Keep — Tüketici PWA
 
-![Keep Home](screenshots/en/keep-pwa/01-home.png)
+![Keep Home](screenshots/tr/keep-pwa/01-home.png)
 
 Etkinlik keşfi, QR kodlu bilet yönetimi ve lig sıralamaları için mobil öncelikli Progressive Web App. IndexedDB + Workbox ile tam çevrimdışı destek.
 
@@ -150,7 +150,7 @@ Etkinlik keşfi, QR kodlu bilet yönetimi ve lig sıralamaları için mobil önc
 | PWA kurulum istemi  | ✅                       |
 | Capacitor mobil     | 🔄 Planlanıyor           |
 
-![Tickets QR](screenshots/en/keep-pwa/03-tickets-qr.png)
+![Tickets QR](screenshots/tr/keep-pwa/03-tickets-qr.png)
 
 ---
 
@@ -327,7 +327,7 @@ portfolio/
 
 ## Lisans
 
-MIT License © 2026 Stancona
+Private & Proprietary — © 2026 Stancona. Tüm hakları saklıdır.
 
 ---
 

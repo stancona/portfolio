@@ -109,7 +109,7 @@ jobs:
           SHOWCASE_TOKEN: ${{ env.SHOWCASE_TOKEN }}
         run: |
           LOCALE=tr OUTDIR=raw-screenshots-tr node scripts/capture-design.js
-          LOCALE=tr OUTDIR=raw-screenshots-tr SKIP_KEEP=1 node scripts/capture-apps.js
+          LOCALE=tr OUTDIR=raw-screenshots-tr node scripts/capture-apps.js
 
       - name: Copy into screenshots/en
         run: |
@@ -120,6 +120,7 @@ jobs:
       - name: Copy into screenshots/tr
         run: |
           cp raw-screenshots-tr/design-system/*.png screenshots/tr/design-system/
+          cp raw-screenshots-tr/keep-pwa/*.png screenshots/tr/keep-pwa/
           cp raw-screenshots-tr/admin-panel/*.png screenshots/tr/admin-panel/
 
       - name: Sanitize check
@@ -129,7 +130,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add screenshots/en
+          git add screenshots/en screenshots/tr
           if git diff --cached --quiet; then
             echo "No screenshot changes detected"
           else
